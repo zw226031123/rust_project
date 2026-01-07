@@ -8,4 +8,19 @@ fn main() {
 
     let mut writer = BufWriter::new(stdout.lock());
     say(&message, width, &mut writer).unwrap();
+
+    let s=String::from("aaa");
+    let len=len(&s);
+    println!("s:{} len: {}",s, len);
+
+    let mut writer =String::from("bbb");
+    change(&mut writer);
+    println!("writer:{writer}");
+}
+
+fn len(s: &String) -> usize {
+    s.len()
+}
+fn change(s: &mut String) {
+    s.push_str("111");
 }
