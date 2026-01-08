@@ -2,8 +2,6 @@ use rand::Rng;
 use std::cmp::Ordering;
 use std::io::stdin;
 
-
-
 fn main1() {
     let secret_number = rand::rng().random_range(1..101);
     println!("Guess the number,{}", secret_number);
@@ -12,7 +10,7 @@ fn main1() {
         let mut guess = String::new();
         stdin().read_line(&mut guess).expect("Failed to read line");
         println!("You guessed: {guess}");
-        let guess:i32= guess.trim().parse().expect("Please type a number!");
+        let guess: i32 = guess.trim().parse().expect("Please type a number!");
         // match guess {
         //     Ok(num) => num,
         //     Err(_) =>continue
@@ -28,13 +26,14 @@ fn main1() {
     }
 }
 
-fn main(){
+fn main() {
+    let c: char = 'A';
+    let number: i32 = 10;
+    let tup = (1, 2.3);
+    let (a, b) = tup;
 
-    let c:char='A';
-    let number:i32 = 10;
-    let tup=(1,2.3);
-    let (a,b) = tup;
-
-
-
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    for element in arr {
+        println!("{}", element);
+    }
 }
