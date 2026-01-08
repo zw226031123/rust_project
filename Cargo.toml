@@ -3,5 +3,67 @@ name = "rust_project"
 version = "0.1.0"
 edition = "2024"
 
+
+[[bin]]
+name = "main"
+path = "src/main.rs"
+
+#[[bin]]
+#name = "variables"
+#path = "src/01_variables.rs"
+#
+#[[bin]]
+#name = "data_types"
+#path = "src/02_data_types.rs"
+#
+#[[bin]]
+#name = "functions"
+#path = "src/03_functions.rs"
+#
+#[[bin]]
+#name = "flow_control"
+#path = "src/04_flow_control.rs"
+#
+#[[bin]]
+#name = "ownership"
+#path = "src/05_ownership.rs"
+#
+#[[bin]]
+#name = "structs"
+#path = "src/06_structs.rs"
+#
+#[[bin]]
+#name = "enums_patterns"
+#path = "src/07_enums_patterns.rs"
+#
+#[[bin]]
+#name = "collections"
+#path = "src/08_collections.rs"
+#
+#[[bin]]
+#name = "modules"
+#path = "src/09_modules.rs"
+#
+#[[bin]]
+#name = "error_handling"
+#path = "src/10_error_handling.rs"
+#
+#[[bin]]
+#name = "generics"
+#path = "src/11_generics.rs"
+#
+#[[bin]]
+#name = "traits"
+#path = "src/12_traits.rs"
+#
+#[[bin]]
+#name = "lifetimes"
+#path = "src/13_lifetimes.rs"
+
+[[bin]]
+name = "study_14"
+path = "src/study_14.rs"
+
 [dependencies]
 ferris-says = "0.3.1"
+rand="0.9.1"
