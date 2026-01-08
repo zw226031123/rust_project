@@ -26,7 +26,7 @@ fn main1() {
     }
 }
 
-fn main() {
+fn main2() {
     let c: char = 'A';
     let number: i32 = 10;
     let tup = (1, 2.3);
@@ -36,4 +36,8 @@ fn main() {
     for element in arr {
         println!("{}", element);
     }
+}
+
+fn main() {
+    let b = Box::new(0);
 }
