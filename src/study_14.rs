@@ -4,7 +4,7 @@ use std::io::stdin;
 
 
 
-fn main() {
+fn main1() {
     let secret_number = rand::rng().random_range(1..101);
     println!("Guess the number,{}", secret_number);
     loop {
@@ -26,4 +26,15 @@ fn main() {
             }
         }
     }
+}
+
+fn main(){
+
+    let c:char='A';
+    let number:i32 = 10;
+    let tup=(1,2.3);
+    let (a,b) = tup;
+
+
+
 }
