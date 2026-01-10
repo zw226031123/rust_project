@@ -8,6 +8,18 @@ edition = "2024"
 name = "main"
 path = "src/main.rs"
 
+[[bin]]
+name = "ownership"
+path = "src/study/ownership.rs"
+
+[[bin]]
+name = "struts"
+path = "src/study/struts.rs"
+
+[[bin]]
+name = "enums"
+path = "src/study/enums.rs"
+
 #[[bin]]
 #name = "variables"
 #path = "src/01_variables.rs"
@@ -62,8 +74,29 @@ path = "src/main.rs"
 
 [[bin]]
 name = "study_14"
-path = "src/study_14.rs"
+path = "src/study/study_14.rs"
+
+[[bin]]
+name = "study_15"
+path = "src/study/study_15.rs"
+
+
+[[bin]]
+name = "mod_study"
+path = "src/study/mod_study.rs"
+
+[[bin]]
+name = "hashmap_study"
+path = "src/study/hashmap_study.rs"
 
 [dependencies]
 ferris-says = "0.3.1"
 rand="0.9.1"
+csv = "1.4.0"
+serde = "1.0.228"
+serde_json = "1.0.149"
+
+
+
+#[profile.release]
+#panic = "abort"
