@@ -1,7 +1,7 @@
 use std::rc::Rc;
-fn main(){
-   // let value= return_string();
-   //  println!("{}", value);
+fn main() {
+    // let value= return_string();
+    //  println!("{}", value);
 }
 
 // fn return_string()->&String{
@@ -9,15 +9,14 @@ fn main(){
 //     &s
 // }
 
-fn return_string_v3()->Rc<String>{
+fn return_string_v3() -> Rc<String> {
     let s = Rc::new(String::from("hello"));
     Rc::clone(&s)
-
 }
-fn return_string_v2()->&'static str{
+fn return_string_v2() -> &'static str {
     "hello"
 }
-fn return_string_v1()->String{
+fn return_string_v1() -> String {
     let s = String::from("hello");
     s
 }

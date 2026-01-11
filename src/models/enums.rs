@@ -1,4 +1,4 @@
-pub enum YesNo{
+pub enum YesNo {
     YES,
     NO,
 }

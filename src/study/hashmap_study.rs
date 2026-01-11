@@ -24,16 +24,14 @@ fn main() {
 
     //不存在 添加
     map.entry(String::from("c")).or_insert(String::from("e"));
-    
+
     //更新
-    let  text="hello world wonderful world";
-    let mut word_map:HashMap<&str,i32>=HashMap::new();
+    let text = "hello world wonderful world";
+    let mut word_map: HashMap<&str, i32> = HashMap::new();
     for word in text.split_whitespace() {
         let count = word_map.entry(word).or_insert(0);
         //更新
         *count += 1;
     }
     println!("{:?}", word_map);
-
-
 }

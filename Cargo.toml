@@ -20,6 +20,17 @@ path = "src/study/struts.rs"
 name = "enums"
 path = "src/study/enums.rs"
 
+[[bin]]
+name = "mod_study"
+path = "src/study/mod_study.rs"
+
+[[bin]]
+name = "hashmap_study"
+path = "src/study/hashmap_study.rs"
+[[bin]]
+name = "errors_study"
+path = "src/study/errors_study.rs"
+
 #[[bin]]
 #name = "variables"
 #path = "src/01_variables.rs"
@@ -80,14 +91,6 @@ path = "src/study/study_14.rs"
 name = "study_15"
 path = "src/study/study_15.rs"
 
-
-[[bin]]
-name = "mod_study"
-path = "src/study/mod_study.rs"
-
-[[bin]]
-name = "hashmap_study"
-path = "src/study/hashmap_study.rs"
 
 [dependencies]
 ferris-says = "0.3.1"
