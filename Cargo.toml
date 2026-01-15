@@ -95,6 +95,7 @@ path = "src/study/study_15.rs"
 [dependencies]
 ferris-says = "0.3.1"
 rand="0.9.1"
+trpl = "0.3.0"
 csv = "1.4.0"
 serde = "1.0.228"
 serde_json = "1.0.149"

@@ -1,0 +1,24 @@
+use std::time::Duration;
+use trpl::Either;
+
+#[test]
+fn test_async_study() {
+    trpl::run(async {
+        let slow = async {
+            trpl::sleep(Duration::from_secs(5)).await;
+            "I finished"
+        };
+        match time_out(slow, Duration::from_secs(2)).await {
+            Ok(message) => println!("{}", message),
+            Err(duration) => {
+                println!("Error: {}", duration.as_secs());
+            }
+        }
+    });
+}
+async fn time_out<F: Future>(future_to_try: F, max_time: Duration) -> Result<F::Output, Duration> {
+    match trpl::race(future_to_try, trpl::sleep(max_time)).await {
+        Either::Left(output) => Ok(output),
+        Either::Right(_) => Err(max_time),
+    }
+}
