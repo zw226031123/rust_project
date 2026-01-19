@@ -1,26 +1,76 @@
-use ferris_says::say; // from the previous step
-use std::io::{BufWriter, stdout};
+use std::thread;
+use std::thread::sleep;
+use std::time::Duration;
 
-fn main() {
-    let stdout = stdout();
-    let message = String::from("Hello fellow Rustaceans!");
-    let width = message.chars().count();
+// fn main() {
+//     // main_sync();
+//     main_async();
+// }
 
-    let mut writer = BufWriter::new(stdout.lock());
-    say(&message, width, &mut writer).unwrap();
+#[tokio::main]
+async fn main() {
+    let handle1 = tokio::spawn(async {
+        let _string = async_read_from_file1().await;
 
-    let s = String::from("aaa");
-    let len = len(&s);
-    println!("s:{} len: {}", s, len);
+    });
+    let handle2 = tokio::spawn(async {
+        let _string = async_read_from_file2().await;
+    });
 
-    let mut writer = String::from("bbb");
-    change(&mut writer);
-    println!("writer:{writer}");
+    tokio::spawn(async {
+        main_sync();
+    });
+    tokio::spawn(async {
+        main_async();
+    });
+    let _ = tokio::join!(handle1, handle2);
 }
 
-fn len(s: &String) -> usize {
-    s.len()
+//多线程处理
+fn main_async() {
+    let handle1 = thread::spawn(|| {
+        let file1 = read_from_file1();
+        println!("{:?}", file1);
+    });
+    let handle2 = thread::spawn(|| {
+        let file2 = read_from_file2();
+        println!("{:?}", file2);
+    });
+    handle1.join().unwrap();
+    handle2.join().unwrap();
 }
-fn change(s: &mut String) {
-    s.push_str("111");
+
+//同步处理
+#[warn(dead_code, unused)]
+fn main_sync() {
+    let file1 = read_from_file1();
+    println!("{:?}", file1);
+    let file2 = read_from_file2();
+    println!("{:?}", file2);
+}
+fn read_from_file1() -> String {
+    sleep(Duration::new(4, 0));
+    String::from("hello,file1")
+}
+fn read_from_file2() -> String {
+    sleep(Duration::new(2, 0));
+    String::from("hello,file2")
+}
+async fn async_read_from_file1() -> String {
+    sleep(Duration::new(4, 0));
+    println!("Read from file1");
+    String::from("hello,file1")
+}
+//等价于上面
+// fn future_read_from_file1() -> impl Future<Output=String>  {
+//     async {
+//         sleep(Duration::new(4, 0));
+//         println!("Read from file1");
+//         String::from("hello,file1")
+//     }
+// }
+async fn async_read_from_file2() -> String {
+    sleep(Duration::new(2, 0));
+    println!("Read from file2");
+    String::from("hello,file2")
 }

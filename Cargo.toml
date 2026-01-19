@@ -31,6 +31,9 @@ path = "src/study/hashmap_study.rs"
 name = "errors_study"
 path = "src/study/errors_study.rs"
 
+[[bin]]
+name = "future_study"
+path = "src/study/future_study.rs"
 #[[bin]]
 #name = "variables"
 #path = "src/01_variables.rs"
