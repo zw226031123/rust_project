@@ -1,7 +1,7 @@
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 use reqwest::blocking::Client;
-use reqwest::{Client as AsyncClient, Error};
+use reqwest::{Client as AsyncClient};
 use rust_project::models::flink::Flink;
 use serde_json::Value;
 use std::time::Duration;
@@ -12,8 +12,8 @@ use tokio;
 fn main_sync() {
     let client = Client::new();
     let authorization = base64("publink", "rxe3N@9%");
-    let url="http://flink-console-test.shb.ltd/jobs/overview";
-    //"http://flink-console.linker.ltd/jobs/overview"
+    // let url = "http://flink-console-test.shb.ltd/jobs/overview";
+    let url="http://flink-console.linker.ltd/jobs/overview";
     let response_result = client
         .get(url)
         .header("authorization", authorization)
@@ -32,18 +32,20 @@ fn main_sync() {
                     let job_list: Vec<Flink> =
                         serde_json::from_str(&jobs_str).expect("Failed to read response");
                     job_list.iter().for_each(|job| {
-                        println!("name:{},state:{},failed:{}", job.name, job.state,job.tasks.failed);
+                        println!(
+                            "name:{},state:{},failed:{}",
+                            job.name, job.state, job.tasks.failed
+                        );
                     })
                 }
             }
         }
     }
 }
-
 #[tokio::test]
 async fn main() {
     // 发送GET请求
-    let client = AsyncClient::new();
+    let _client = AsyncClient::new();
     let resp = reqwest::get("http://flink-console.linker.ltd/jobs/overview")
         .await
         .unwrap() // 等待请求完成，并处理错误
@@ -64,7 +66,7 @@ fn base64(username: &str, password: &str) -> String {
 async fn test() {
     let rc = std::sync::Arc::new(tokio::sync::Mutex::new(false));
     let executed = rc.clone();
-    let join_handle = tokio::spawn(async move {
+    let _join_handle = tokio::spawn(async move {
         println!("task running");
         *executed.lock().await = true;
         std::future::pending::<()>().await;

@@ -21,7 +21,7 @@ fn main() {
     }
 
     let mut v = vec![1, 2, 3];
-    let num = &v[2];
+    let _num = &v[2];
     v.push(1);
     // print!("{}", *num);
     let mut v = Vec::<i32>::new();

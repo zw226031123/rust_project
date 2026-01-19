@@ -1,8 +1,7 @@
-use ferris_says::say;
 use rand::Rng;
 use std::cmp::Ordering;
 use std::io::stdin;
-
+#[warn(unused,dead_code)]
 fn main1() {
     let secret_number = rand::rng().random_range(1..101);
     println!("Guess the number,{}", secret_number);
@@ -27,11 +26,12 @@ fn main1() {
     }
 }
 
+#[warn(unused,dead_code)]
 fn main2() {
-    let c: char = 'A';
-    let number: i32 = 10;
+    let _c: char = 'A';
+    let _number: i32 = 10;
     let tup = (1, 2.3);
-    let (a, b) = tup;
+    let (_a, _b) = tup;
 
     let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     for element in arr {
@@ -40,7 +40,7 @@ fn main2() {
 }
 
 fn main() {
-    let b = Box::new(0);
+    let _b = Box::new(0);
     let m1 = String::from("hello");
     println!("m1: {}", m1);
     println!("m1: {}", &m1);
@@ -51,4 +51,7 @@ fn main() {
     *num += 1;
     println!("num: {}", *num);
     println!("v: {:?}", v);
+
+    main1();
+    main2();
 }

@@ -6,6 +6,7 @@ fn main() {
     let a = area(&r);
     println!("{:#?}", r);
     println!("a = {}", a);
+    Rectangle::area(&r);
 }
 
 fn area(rectangle: &Rectangle) -> u32 {
@@ -18,6 +19,7 @@ pub struct Rectangle {
 }
 
 impl Rectangle {
+    #[warn(unused,dead_code)]
     fn area(&self) -> u32 {
         self.width * self.height
     }
