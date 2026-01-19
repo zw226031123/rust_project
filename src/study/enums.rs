@@ -11,12 +11,13 @@ fn main() {
     };
     let _kind = loopback.kind;
     println!("{}",loopback.address);
-    let _home_v2 = IpAddrKindV2::V4(String::from("127.0.0.1"));
-    let _a = _home_v2;
-    println!("{:p}", &_a);
+    let home_v2 = IpAddrKindV2::V4(String::from("127.0.0.1"));
     let loopback_v2 = IpAddrKindV2::V6(String::from("::1"));
     let _a = loopback_v2;
-    println!("{:p}", &_a);
+    match home_v2 {
+        IpAddrKindV2::V4(address) => {println!("{}",address);},
+        IpAddrKindV2::V6(address) => {println!("{}",address);},
+    }
     // Option::Some("Hello").map(|i| i.len()).or_else(0);
 }
 enum IpAddrKind {

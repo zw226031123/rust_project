@@ -12,19 +12,27 @@ fn main() {
     let _result = fs::read_to_string("");
     // FormResidual
     let _result = read_file();
-    let a=5;
-    let _b :Result<(),MyError>=if a>5 {
+    let a = 5;
+    let b: Result<(), MyError> = if a > 5 {
         Err(MyError::Io(Error::new(
             io::ErrorKind::InvalidInput,
             "输入为空",
         )))
-    }else {
+    } else {
         Err(MyError::Io(Error::new(
             io::ErrorKind::InvalidInput,
             "输入为空2",
         )))
     };
-
+    match b {
+        Err(MyError::Io(error)) => {
+            println!("{}", error);
+        }
+        Err(MyError::ParseInt(error)) => {
+            println!("{}", error);
+        }
+        _ => {}
+    }
 }
 enum MyError {
     Io(std::io::Error),
