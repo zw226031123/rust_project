@@ -52,7 +52,7 @@ async fn main() {
 
     let handle3 = tokio::spawn(async {
         let timer = AsyncTimer {
-            expiration_time: Instant::now() + Duration::new(4, 0),
+            expiration_time: Instant::now() + Duration::from_millis(4000),
         }.await;
         println!("{}", timer);
     });
