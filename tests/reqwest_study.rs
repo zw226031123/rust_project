@@ -12,8 +12,10 @@ use tokio;
 fn main_sync() {
     let client = Client::new();
     let authorization = base64("publink", "rxe3N@9%");
+    let url="http://flink-console-test.shb.ltd/jobs/overview";
+    //"http://flink-console.linker.ltd/jobs/overview"
     let response_result = client
-        .get("http://flink-console.linker.ltd/jobs/overview")
+        .get(url)
         .header("authorization", authorization)
         .send();
     match response_result {
@@ -30,7 +32,7 @@ fn main_sync() {
                     let job_list: Vec<Flink> =
                         serde_json::from_str(&jobs_str).expect("Failed to read response");
                     job_list.iter().for_each(|job| {
-                        println!("name:{},state:{}", job.name, job.state);
+                        println!("name:{},state:{},failed:{}", job.name, job.state,job.tasks.failed);
                     })
                 }
             }
