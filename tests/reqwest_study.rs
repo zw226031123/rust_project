@@ -19,11 +19,11 @@ fn main_sync() {
         .header("authorization", authorization)
         .send();
     match response_result {
-        Err(e) => panic!("Failed to execute request,{:?}", e),
+        Err(e) => println!("Failed to execute request,{:?}", e),
         Ok(response) => {
             let body = response.text();
             match body {
-                Err(e) => panic!("response text error, {:?}", e),
+                Err(e) => println!("response text error, {:?}", e),
                 Ok(body) => {
                     println!("Response body: {}", body);
                     let flink: Value =
@@ -45,14 +45,28 @@ fn main_sync() {
 #[tokio::test]
 async fn main() {
     // 发送GET请求
-    let _client = AsyncClient::new();
-    let resp = reqwest::get("http://flink-console.linker.ltd/jobs/overview")
+    let client = AsyncClient::new();
+    let authorization = base64("publink", "rxe3N@9%");
+    let resp = client.get("http://flink-console.linker.ltd/jobs/overview")
+        .header("authorization", authorization)
+        .send()
         .await
         .unwrap() // 等待请求完成，并处理错误
         .text() // 将响应体转换为文本
         .await
         .unwrap(); // 等待文本转换完成，并处理错误
     println!("Response: {}", resp);
+    let flink: Value =
+        serde_json::from_str(&resp).expect("Failed to read response");
+    let jobs_str = flink.get("jobs").unwrap().to_string();
+    let job_list: Vec<Flink> =
+        serde_json::from_str(&jobs_str).expect("Failed to read response");
+    job_list.iter().for_each(|job| {
+        println!(
+            "name:{},state:{},failed:{}",
+            job.name, job.state, job.tasks.failed
+        );
+    })
 }
 
 fn base64(username: &str, password: &str) -> String {
