@@ -20,13 +20,6 @@ impl<'de> Deserialize<'de> for I64OrString {
                 formatter.write_str("a string or an i64")
             }
 
-            fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
-            where
-                E: de::Error,
-            {
-                value.parse().map(I64OrString).map_err(de::Error::custom)
-            }
-
             fn visit_i64<E>(self, value: i64) -> Result<Self::Value, E>
             where
                 E: de::Error,
@@ -43,6 +36,13 @@ impl<'de> Deserialize<'de> for I64OrString {
                 } else {
                     Ok(I64OrString(value as i64))
                 }
+            }
+
+            fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
+            where
+                E: de::Error,
+            {
+                value.parse().map(I64OrString).map_err(de::Error::custom)
             }
         }
 
@@ -68,13 +68,6 @@ impl<'de> Deserialize<'de> for StringOrNumber {
                 formatter.write_str("a string or a number")
             }
 
-            fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
-            where
-                E: de::Error,
-            {
-                Ok(StringOrNumber(value.to_string()))
-            }
-
             fn visit_i64<E>(self, value: i64) -> Result<Self::Value, E>
             where
                 E: de::Error,
@@ -90,6 +83,13 @@ impl<'de> Deserialize<'de> for StringOrNumber {
             }
 
             fn visit_f64<E>(self, value: f64) -> Result<Self::Value, E>
+            where
+                E: de::Error,
+            {
+                Ok(StringOrNumber(value.to_string()))
+            }
+
+            fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
             where
                 E: de::Error,
             {
