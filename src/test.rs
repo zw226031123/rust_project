@@ -1,5 +1,3 @@
-
-
 //cargo test xx
 //cargo test -- --show-output
 //cargo test -- --ignored
@@ -9,7 +7,4 @@
 // #[ignore]
 //#[should_panic]
 // #[should_panic(expected = "assertion failed")]
-fn test(){
-
-
-}
+fn test() {}

@@ -19,7 +19,7 @@ pub struct Rectangle {
 }
 
 impl Rectangle {
-    #[warn(unused,dead_code)]
+    #[warn(unused, dead_code)]
     fn area(&self) -> u32 {
         self.width * self.height
     }

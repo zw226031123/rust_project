@@ -1,7 +1,7 @@
 use rand::Rng;
 use std::cmp::Ordering;
 use std::io::stdin;
-#[warn(unused,dead_code)]
+#[warn(unused, dead_code)]
 fn main1() {
     let secret_number = rand::rng().random_range(1..101);
     println!("Guess the number,{}", secret_number);
@@ -26,7 +26,7 @@ fn main1() {
     }
 }
 
-#[warn(unused,dead_code)]
+#[warn(unused, dead_code)]
 fn main2() {
     let _c: char = 'A';
     let _number: i32 = 10;

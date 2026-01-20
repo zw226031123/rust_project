@@ -53,14 +53,14 @@ async fn main() {
     let handle3 = tokio::spawn(async {
         let timer = AsyncTimer {
             expiration_time: Instant::now() + Duration::from_millis(4000),
-        }.await;
+        }
+        .await;
         println!("{}", timer);
     });
 
-
-    let _ = tokio::join!(handle1, handle2,handle3);
+    let _ = tokio::join!(handle1, handle2, handle3);
 }
-fn read_file2() -> impl Future<Output=String> {
+fn read_file2() -> impl Future<Output = String> {
     async {
         // tokio::time::sleep(Duration::new(2, 0)).await;
         // yield_now().await;

@@ -1,7 +1,7 @@
 use std::rc::Rc;
 
 #[test]
-fn test(){
+fn test() {
     let x = Rc::new(Example);
     let y = Rc::clone(&x);
     println!("A");
@@ -9,7 +9,6 @@ fn test(){
     println!("B");
     drop(y);
     println!("C");
-
 }
 
 struct Example;

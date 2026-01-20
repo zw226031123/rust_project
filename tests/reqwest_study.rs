@@ -1,19 +1,18 @@
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
+use reqwest::Client as AsyncClient;
 use reqwest::blocking::Client;
-use reqwest::{Client as AsyncClient};
 use rust_project::models::flink::Flink;
 use serde_json::Value;
 use std::time::Duration;
-use tokio;
-// 引入tokio库
+use tokio; // 引入tokio库
 
 #[test]
 fn main_sync() {
     let client = Client::new();
     let authorization = base64("publink", "rxe3N@9%");
     // let url = "http://flink-console-test.shb.ltd/jobs/overview";
-    let url="http://flink-console.linker.ltd/jobs/overview";
+    let url = "http://flink-console.linker.ltd/jobs/overview";
     let response_result = client
         .get(url)
         .header("authorization", authorization)
@@ -47,7 +46,8 @@ async fn main() {
     // 发送GET请求
     let client = AsyncClient::new();
     let authorization = base64("publink", "rxe3N@9%");
-    let resp = client.get("http://flink-console.linker.ltd/jobs/overview")
+    let resp = client
+        .get("http://flink-console.linker.ltd/jobs/overview")
         .header("authorization", authorization)
         .send()
         .await
@@ -56,11 +56,9 @@ async fn main() {
         .await
         .unwrap(); // 等待文本转换完成，并处理错误
     println!("Response: {}", resp);
-    let flink: Value =
-        serde_json::from_str(&resp).expect("Failed to read response");
+    let flink: Value = serde_json::from_str(&resp).expect("Failed to read response");
     let jobs_str = flink.get("jobs").unwrap().to_string();
-    let job_list: Vec<Flink> =
-        serde_json::from_str(&jobs_str).expect("Failed to read response");
+    let job_list: Vec<Flink> = serde_json::from_str(&jobs_str).expect("Failed to read response");
     job_list.iter().for_each(|job| {
         println!(
             "name:{},state:{},failed:{}",

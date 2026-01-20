@@ -1,5 +1,5 @@
-use serde::{Deserialize, Deserializer};
 use serde::de::{self, Visitor};
+use serde::{Deserialize, Deserializer};
 use std::fmt;
 
 /// 包装类型：可以将字符串或数字转换为 i64
@@ -24,10 +24,7 @@ impl<'de> Deserialize<'de> for I64OrString {
             where
                 E: de::Error,
             {
-                value
-                    .parse()
-                    .map(I64OrString)
-                    .map_err(de::Error::custom)
+                value.parse().map(I64OrString).map_err(de::Error::custom)
             }
 
             fn visit_i64<E>(self, value: i64) -> Result<Self::Value, E>
@@ -249,7 +246,16 @@ impl<'de> Deserialize<'de> for Flink {
             }
         }
 
-        const FIELDS: &[&str] = &["jid", "name", "state", "start_time", "end_time", "duration", "last_modification", "tasks"];
+        const FIELDS: &[&str] = &[
+            "jid",
+            "name",
+            "state",
+            "start_time",
+            "end_time",
+            "duration",
+            "last_modification",
+            "tasks",
+        ];
         deserializer.deserialize_struct("Flink", FIELDS, FlinkVisitor)
     }
 }

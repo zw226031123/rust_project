@@ -11,7 +11,6 @@ use std::time::Duration;
 async fn main() {
     let handle1 = tokio::spawn(async {
         let _string = async_read_from_file1().await;
-
     });
     let handle2 = tokio::spawn(async {
         let _string = async_read_from_file2().await;
