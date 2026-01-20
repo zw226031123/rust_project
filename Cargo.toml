@@ -27,6 +27,7 @@ path = "src/study/mod_study.rs"
 [[bin]]
 name = "hashmap_study"
 path = "src/study/hashmap_study.rs"
+
 [[bin]]
 name = "errors_study"
 path = "src/study/errors_study.rs"
@@ -34,6 +35,7 @@ path = "src/study/errors_study.rs"
 [[bin]]
 name = "future_study"
 path = "src/study/future_study.rs"
+
 #[[bin]]
 #name = "variables"
 #path = "src/01_variables.rs"
@@ -96,10 +98,10 @@ path = "src/study/study_15.rs"
 
 
 [dependencies]
-ferris-says = "0.3.1"
+#ferris-says = "0.3.1"
+#csv = "1.4.0"
 rand="0.9.1"
 trpl = "0.3.0"
-csv = "1.4.0"
 serde = { version = "1.0.228",features = ["derive"] }
 serde_json = "1.0.149"
 base64 = "0.22.1"
