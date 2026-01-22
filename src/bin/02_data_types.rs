@@ -15,14 +15,16 @@ fn main() {
     // 有符号整数: i8, i16, i32, i64, i128, isize
     // 无符号整数: u8, u16, u32, u64, u128, usize
 
-    let decimal = 98_222;      // 十进制
-    let hex = 0xff;            // 十六进制
-    let octal = 0o77;          // 八进制
-    let binary = 0b1111_0000;  // 二进制
-    let byte = b'A';           // 字节（u8 的别名）
+    let decimal = 98_222; // 十进制
+    let hex = 0xff; // 十六进制
+    let octal = 0o77; // 八进制
+    let binary = 0b1111_0000; // 二进制
+    let byte = b'A'; // 字节（u8 的别名）
 
-    println!("整数示例: decimal={}, hex={}, octal={}, binary={}, byte={}",
-             decimal, hex, octal, binary, byte);
+    println!(
+        "整数示例: decimal={}, hex={}, octal={}, binary={}, byte={}",
+        decimal, hex, octal, binary, byte
+    );
 
     // isize 和 usize 依赖于计算机架构
     // 64 位系统上是 64 位，32 位系统上是 32 位
@@ -33,8 +35,8 @@ fn main() {
     // f32（单精度）和 f64（双精度）
     // 默认类型是 f64
 
-    let x = 2.0;           // f64
-    let y: f32 = 3.0;      // 显式指定 f32
+    let x = 2.0; // f64
+    let y: f32 = 3.0; // 显式指定 f32
 
     println!("浮点数: x={}, y={}", x, y);
 
@@ -86,7 +88,7 @@ fn main() {
     println!("解构: a={}, b={}, c={}, d={}", a, b, c, d);
 
     // 空元组 ()
-    let empty_tuple: () = ();
+    let _empty_tuple: () = ();
     println!("空元组");
 
     // ---------- 数组 (Array) ----------
@@ -124,7 +126,10 @@ fn main() {
     let inferred_val = 42; // 推断为 i32
     let inferred_float = 3.14; // 推断为 f64
 
-    println!("推断类型: {} 是 i32, {} 是 f64", inferred_val, inferred_float);
+    println!(
+        "推断类型: {} 是 i32, {} 是 f64",
+        inferred_val, inferred_float
+    );
 
     // ========== 5. 类型别名 ==========
     // 使用 type 关键字创建类型别名
@@ -140,6 +145,7 @@ fn main() {
     // 例如: panic!(), continue, loop
 
     // 这是一个发散函数（从不返回）
+    #[allow(dead_code)]
     fn diverge() -> ! {
         panic!("这个函数永远不会返回！");
     }

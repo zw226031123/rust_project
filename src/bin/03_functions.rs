@@ -24,7 +24,7 @@ fn main() {
 
     let y = {
         let x = 3;
-        x + 1  // 注意：这里没有分号，是表达式
+        x + 1 // 注意：这里没有分号，是表达式
     };
     println!("y 的值: {}", y);
 
@@ -52,7 +52,10 @@ fn main() {
     // 使用点语法调用: object.method()
 
     println!("\n方法调用示例:");
-    let rect = Rectangle { width: 30, height: 50 };
+    let rect = Rectangle {
+        width: 30,
+        height: 50,
+    };
     println!("矩形面积: {}", rect.area());
 
     // 静态方法调用（使用 :: 运算符）
@@ -90,6 +93,7 @@ fn add(a: i32, b: i32) -> i32 {
 }
 
 // 也可以显式使用 return 关键字
+#[allow(dead_code)]
 fn subtract(a: i32, b: i32) -> i32 {
     return a - b;
 }
@@ -105,7 +109,7 @@ fn plus_one(x: i32) -> i32 {
 }
 
 // ---------- 早期返回 ----------
-fn return_early() -> &str {
+fn return_early() -> &'static str {
     // 可以使用 return 提前返回
     if true {
         return "提前返回";
@@ -133,6 +137,7 @@ impl Rectangle {
     }
 
     // 可以修改 self（需要 &mut self）
+    #[allow(dead_code)]
     fn set_width(&mut self, width: u32) {
         self.width = width;
     }
@@ -146,7 +151,10 @@ impl Rectangle {
 impl Rectangle {
     // 创建一个正方形
     fn square(size: u32) -> Self {
-        Self { width: size, height: size }
+        Self {
+            width: size,
+            height: size,
+        }
     }
 }
 
@@ -156,11 +164,7 @@ impl Rectangle {
 
 // T 必须实现 PartialOrd trait，才能比较大小
 fn max<T: PartialOrd>(a: T, b: T) -> T {
-    if a > b {
-        a
-    } else {
-        b
-    }
+    if a > b { a } else { b }
 }
 
 // ============================================================================

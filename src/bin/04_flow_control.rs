@@ -27,11 +27,7 @@ fn main() {
 
     // if 是表达式，可以返回值
     let condition = true;
-    let value = if condition {
-        100
-    } else {
-        200
-    };
+    let value = if condition { 100 } else { 200 };
     println!("if 表达式结果: {}", value);
 
     // 注意：分支返回值类型必须一致
@@ -41,10 +37,10 @@ fn main() {
     println!("\n=== match 模式匹配 ===");
 
     let coin = Coin::Penny;
-    println!("{:?} 的值是 {} 分", coin, value_in_cents(coin));
+    println!("{} 的值是 {} 分", "Penny", value_in_cents(coin));
 
     let coin2 = Coin::Quarter(UsState::Alaska);
-    println!("{:?} 的值是 {} 分", coin2, value_in_cents(coin2));
+    println!("{:?} 的值是 {} 分", "Quarter Alaska", value_in_cents(coin2));
 
     // match 绑定值
     let dice_roll = 7;
@@ -52,6 +48,7 @@ fn main() {
         1 => println!("一等奖！"),
         2 => println!("二等奖！"),
         3 => println!("三等奖！"),
+        #[allow(unused)]
         other => println!("未中奖，再试一次！"), // 捕获其余情况
     }
 
@@ -156,6 +153,7 @@ fn main() {
     println!("loop 结果: {}", result);
 
     // 多重循环中使用标签
+    #[allow(unused)]
     let mut matrix = [['x'; 3]; 3];
     let mut found = false;
     'outer: for i in 0..3 {
@@ -197,6 +195,7 @@ fn main() {
 
 #[derive(Debug)]
 enum UsState {
+    #[allow(unused)]
     Alabama,
     Alaska,
     // ... 其他州
@@ -205,6 +204,7 @@ enum UsState {
 #[derive(Debug)]
 enum Coin {
     Penny,
+    #[allow(unused)]
     Nickel,
     Dime,
     Quarter(UsState),
