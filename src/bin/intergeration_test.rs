@@ -1,5 +1,7 @@
 use rust_project::models::enums::YesNo;
 use rust_project::models::structs::HousePrice;
+#[allow(unused)]
+use std::thread;
 
 fn main() {
     let _price = HousePrice {

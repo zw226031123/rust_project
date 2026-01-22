@@ -4,6 +4,8 @@ use reqwest::Client as AsyncClient;
 use reqwest::blocking::Client;
 use rust_project::models::flink::Flink;
 use serde_json::Value;
+#[allow(unused)]
+use std::time::Duration;
 use tokio; // 引入tokio库
 #[allow(unused)]
 fn main_sync() {
