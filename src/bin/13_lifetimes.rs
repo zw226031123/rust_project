@@ -21,9 +21,9 @@ fn main() {
     println!("1. 什么是生命周期:");
 
     {
-        let x = 5;              // x 的生命周期开始
-        println!("x = {}", x);   // x 在这里有效
-    }                           // x 的生命周期结束
+        let x = 5; // x 的生命周期开始
+        println!("x = {}", x); // x 在这里有效
+    } // x 的生命周期结束
 
     // println!("{}", x); // 错误！x 已经离开作用域
 
@@ -48,11 +48,11 @@ fn main() {
     // Rust 使用借用检查器确保引用始终有效
     let mut s1 = String::from("hello");
 
-    let r1 = &s1;      // 不可变引用
-    let r2 = &s1;      // 另一个不可变引用
+    let r1 = &s1; // 不可变引用
+    let r2 = &s1; // 另一个不可变引用
     println!("r1 = {}, r2 = {}", r1, r2);
 
-    let r3 = &mut s1;  // 可变引用
+    let r3 = &mut s1; // 可变引用
     // r3 可以修改 s1
     println!("r3 = {}", r3);
 
@@ -83,8 +83,9 @@ fn main() {
     // ========== 6. 方法中的生命周期 ==========
     println!("\n6. 方法中的生命周期:");
 
+    let chapter = String::from("第一章");
     let excerpt = ImportantExcerpt {
-        part: String::from("第一章"),
+        part: chapter.as_str(),
     };
 
     println!("   引文: {}", excerpt.announce_and_return_part("读者"));
@@ -103,11 +104,13 @@ fn main() {
     // ========== 8. 泛型生命周期参数 ==========
     println!("\n8. 泛型生命周期参数:");
 
-    let string1 = String::from("abcd");
+    let string1 = String::from("a");
     let string2 = String::from("xyz");
 
-    println!("   longest_with_announcement: {}",
-        longest_with_announcement(&string1, &string2, "正在查找最长的字符串"));
+    println!(
+        "   longest_with_announcement: {}",
+        longest_with_announcement(&string1, &string2, "正在查找最长的字符串")
+    );
 
     // ========== 9. 生命周期省略规则 ==========
     println!("\n9. 生命周期省略规则:");
@@ -126,6 +129,7 @@ fn main() {
     println!("\n10. 生命周期与结构体:");
 
     #[derive(Debug)]
+    #[allow(dead_code)]
     struct Ref<'a, T> {
         part: &'a T,
     }
@@ -159,28 +163,16 @@ fn main() {
 // longest 函数：返回两个字符串切片中较长的一个
 // 'a 表示返回引用的生命周期与两个输入引用的生命周期相同
 fn longest<'a>(s1: &'a str, s2: &'a str) -> &'a str {
-    if s1.len() > s2.len() {
-        s1
-    } else {
-        s2
-    }
+    if s1.len() > s2.len() { s1 } else { s2 }
 }
 
 // 生命周期标注在泛型中的使用
-fn longest_with_announcement<'a, T>(
-    s1: &'a str,
-    s2: &'a str,
-    announcement: &str,
-) -> &'a str
+fn longest_with_announcement<'a, T>(s1: &'a str, s2: &'a str, announcement: T) -> &'a str
 where
     T: Display,
 {
     println!("   公告: {}", announcement);
-    if s1.len() > s2.len() {
-        s1
-    } else {
-        s2
-    }
+    if s1.len() > s2.len() { s1 } else { s2 }
 }
 
 // 省略规则示例（不需要显式标注）
@@ -215,6 +207,7 @@ impl<'a> ImportantExcerpt<'a> {
 }
 
 // 多个生命周期参数
+#[allow(dead_code)]
 struct Ref<'a, 'b, T> {
     x: &'a T,
     y: &'b T,
@@ -232,11 +225,13 @@ struct Book<'a> {
 }
 
 impl<'a> Book<'a> {
+    #[allow(dead_code)]
     fn get_reference(&self) -> &str {
         self.author
     }
 
     // 返回值的生命周期与 self 相同
+    #[allow(dead_code)]
     fn get_title(&self) -> &str {
         &self.title
     }
@@ -247,16 +242,19 @@ impl<'a> Book<'a> {
 // ============================================================================
 
 // 1. 生命周期变体
+#[allow(dead_code)]
 struct Owner {
     name: String,
 }
 
 // 引用者
+#[allow(dead_code)]
 struct Borrower<'a> {
     owner: &'a Owner,
 }
 
 // 2. 生命周期在闭包中
+#[allow(dead_code)]
 fn exec_with_callback<F>(callback: F)
 where
     F: FnOnce(),

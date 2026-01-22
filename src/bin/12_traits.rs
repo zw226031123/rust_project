@@ -21,7 +21,7 @@ fn main() {
         name: String::from("Buddy"),
         age: 3,
     };
-    println!("   {}", dog.speak());
+    // println!("   {}", dog.speak());
     println!("   {}", dog.who_am_i());
 
     // ========== 2. Trait 作为参数 ==========
@@ -54,15 +54,18 @@ fn main() {
     }
 
     // 多个约束
+    #[allow(dead_code)]
     fn notify3(item: &(impl Summary + Display)) {
         println!("{}", item);
     }
 
+    #[allow(dead_code)]
     fn notify4<T: Summary + Display>(item: &T) {
         println!("{}", item);
     }
 
     // where 子句
+    #[allow(dead_code)]
     fn notify5<T>(item: &T)
     where
         T: Summary + Display,
@@ -72,7 +75,7 @@ fn main() {
 
     notify1(&article);
     notify2(&article);
-    notify5(&article);
+    // notify5(&article);
 
     // ========== 4. 返回 Trait 类型 ==========
     println!("\n4. 返回 Trait 类型:");
@@ -144,7 +147,9 @@ fn main() {
         retweet: false,
     };
 
-    println!("   {}", tweet.summarize());
+    // println!("   {}", tweet.summarize());
+    println!("   {}", DefaultSummary::summarize(&tweet));
+    println!("   {}", Summary::summarize(&tweet));
     // 使用默认实现
     println!("   默认摘要: {}", tweet.default_summary());
 
@@ -177,7 +182,7 @@ fn main() {
     };
 
     // 调用特定实现
-    println!("   Display: {}", <Person as Display>::fmt(&person));
+    println!("   Display: {}", person);
     println!("   自我介绍: {}", person.who_am_i());
 
     // ========== 11. new 和关联函数 ==========
@@ -200,8 +205,12 @@ fn main() {
     }
 
     {
-        let _d1 = Droppable { name: "第一个".to_string() };
-        let _d2 = Droppable { name: "第二个".to_string() };
+        let _d1 = Droppable {
+            name: "第一个".to_string(),
+        };
+        let _d2 = Droppable {
+            name: "第二个".to_string(),
+        };
         println!("   在作用域内");
     }
     println!("   作用域结束");
@@ -229,6 +238,7 @@ trait DefaultSummary {
 }
 
 // Supertrait：OutlinePrint 必须先实现 Display
+#[allow(dead_code)]
 trait OutlinePrint: Display {
     fn outline_format(&self) -> String {
         format!("* {} *", self.to_string())
@@ -273,6 +283,7 @@ impl Identify for Dog {
 // 结构体实现 trait
 //=============================================================================
 
+#[allow(dead_code)]
 struct NewsArticle {
     headline: String,
     location: String,
@@ -286,6 +297,7 @@ impl Summary for NewsArticle {
     }
 }
 
+#[allow(dead_code)]
 struct Tweet {
     username: String,
     content: String,
@@ -306,11 +318,13 @@ impl DefaultSummary for Tweet {}
 //=============================================================================
 
 // 泛型 trait
+#[allow(dead_code)]
 trait Contains<A, B> {
     fn contains(&self, a: &A, b: &B) -> bool;
 }
 
 // 结构体使用关联类型
+#[allow(dead_code)]
 trait Container {
     type Item;
 
@@ -336,12 +350,19 @@ impl Display for Person {
 
 impl OutlinePrint for Person {}
 
+impl Identify for Person {
+    fn who_am_i(&self) -> String {
+        format!("我是 {}, {}岁", self.name, self.age)
+    }
+}
+
 //=============================================================================
 // Drop trait 示例
 //=============================================================================
 
 // Drop trait 在值离开作用域时自动调用
 // 用于释放资源（文件句柄、网络连接等）
+#[allow(dead_code)]
 struct File {
     name: String,
 }
@@ -356,6 +377,7 @@ impl Drop for File {
 // new pattern
 //=============================================================================
 
+#[allow(dead_code)]
 #[derive(Debug)]
 struct Rectangle {
     width: u32,
@@ -376,9 +398,8 @@ impl New for Rectangle {
 // 运算符重载示例
 //=============================================================================
 
-use std::ops::Add;
-
 // 为自定义类型实现 Add
+#[allow(dead_code)]
 #[derive(Debug, Clone, Copy)]
 struct Complex {
     real: f64,

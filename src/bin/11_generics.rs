@@ -8,6 +8,8 @@
 //
 // ============================================================================
 
+use std::fmt::Display;
+
 fn main() {
     println!("=== 泛型编程 ===\n");
 
@@ -27,11 +29,11 @@ fn main() {
 
     let integer = Point { x: 5, y: 10 };
     let float = Point { x: 1.0, y: 4.0 };
-    let mixed = Point { x: 5, y: 4.0 }; // 不同类型
+    // let mixed = Point { x: 5, y: 4.0 }; // 不同类型
 
     println!("   integer: ({}, {})", integer.x, integer.y);
     println!("   float: ({}, {})", float.x, float.y);
-    println!("   mixed: ({}, {})", mixed.x, mixed.y);
+    // println!("   mixed: ({}, {})", mixed.x, mixed.y);
 
     // ========== 3. 泛型枚举 ==========
     println!("\n3. 泛型枚举 (Option):");
@@ -62,8 +64,8 @@ fn main() {
     println!("   p2.y = {}", p2.y());
 
     // 混合类型的方法
-    let p3 = mixed.x_to_string();
-    println!("   mixed.x_to_string() = {}", p3);
+    // let p3 = mixed.x_to_string();
+    // println!("   mixed.x_to_string() = {}", p3);
 
     // ========== 5. trait 约束 (where 子句) ==========
     println!("\n6. Trait 约束:");
@@ -140,14 +142,11 @@ fn main() {
 
 // T 必须实现 PartialOrd trait 才能比较大小
 fn max<T: PartialOrd>(a: T, b: T) -> T {
-    if a > b {
-        a
-    } else {
-        b
-    }
+    if a > b { a } else { b }
 }
 
 // 多重约束
+#[allow(dead_code)]
 fn print_and_return<T: Display + Copy>(value: T) {
     println!("值为: {}", value);
 }
@@ -155,7 +154,7 @@ fn print_and_return<T: Display + Copy>(value: T) {
 // where 子句语法（更清晰）
 fn sum_values<T>(values: &[T]) -> T
 where
-    T: std::iter::Sum + Copy,
+    T: for<'a> std::iter::Sum<&'a T> + Copy,
 {
     values.iter().sum()
 }
@@ -169,6 +168,7 @@ struct Point<T> {
     y: T,
 }
 
+#[allow(dead_code)]
 struct Point2<T, U> {
     x: T,
     y: U,
@@ -186,6 +186,7 @@ impl<T> Point<T> {
 }
 
 // 为特定类型实现方法
+#[allow(dead_code)]
 impl Point<f64> {
     fn distance_from_origin(&self) -> f64 {
         (self.x.powi(2) + self.y.powi(2)).sqrt()
@@ -193,6 +194,7 @@ impl Point<f64> {
 }
 
 // 跨类型方法
+#[allow(dead_code)]
 impl<T, U> Point2<T, U> {
     fn x_to_string(&self) -> String
     where
@@ -220,7 +222,8 @@ impl<T, U> Point2<T, U> {
 // 4. Trait 约束
 // ============================================================================
 
-#[derive(Debug, Clone, Copy)]
+#[allow(dead_code)]
+#[derive(Debug, Clone)]
 struct Person {
     name: String,
     age: u32,
@@ -232,6 +235,7 @@ fn duplicate<T: Clone>(value: &T) -> T {
 }
 
 // 多个约束
+#[allow(dead_code)]
 fn compare_and_print<T: PartialOrd + Display>(a: &T, b: &T) {
     if a < b {
         println!("{} < {}", a, b);
@@ -257,6 +261,8 @@ fn combine<T: std::ops::Add<Output = T>>(a: T, b: T) -> T {
 // 6. 默认泛型参数
 // ============================================================================
 
+#[allow(dead_code)]
+#[derive(Debug)]
 struct Pair<T = i32> {
     first: T,
     second: T,
@@ -272,6 +278,7 @@ impl<T> Pair<T> {
 // 7. 关联类型
 // ============================================================================
 
+#[allow(dead_code)]
 trait Container {
     type Item;
 

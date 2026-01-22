@@ -13,16 +13,18 @@
 // ========== 使用 use 关键字 ==========
 // use 关键字将路径导入作用域，避免重复书写完整路径
 
+use crate::front_of_house::{hosting, serving};
 use std::collections::{HashMap, HashSet};
+#[allow(unused_imports)]
 use std::fmt::{self, Display};
 use std::io::{self, Write};
-
 // ========== 模块定义 ==========
 // 使用 mod 关键字定义模块
 // 默认情况下，模块是私有的，需要使用 pub 使其公开
 
 // 内联模块定义
 mod front_of_house {
+    #[allow(dead_code)]
     // pub 关键字使模块/函数/结构体等对外可见
     pub mod hosting {
         pub fn add_to_waitlist() {
@@ -34,6 +36,7 @@ mod front_of_house {
         }
     }
 
+    #[allow(dead_code)]
     pub mod serving {
         pub fn take_order() {
             println!("接收订单");
@@ -48,11 +51,12 @@ mod front_of_house {
         }
     }
 
+    #[allow(dead_code)]
     mod back_of_house {
         // 私有结构体
         struct Chef {
             name: String,
-            ..Default::default()
+            // ..Default::default()
         }
 
         // 公有关联函数
@@ -79,9 +83,10 @@ mod customer {
 // ========== 结构体可见性 ==========
 mod restaurant {
     #[derive(Debug)]
+    #[allow(dead_code)]
     pub struct Breakfast {
-        pub toast: String,        // 公开字段
-        seasonal_fruit: String,   // 私有字段
+        pub toast: String,      // 公开字段
+        seasonal_fruit: String, // 私有字段
     }
 
     impl Breakfast {
@@ -105,6 +110,8 @@ mod restaurant {
 mod types {
     // 私有模块
     mod internal {
+        #[derive(Debug)]
+        #[allow(dead_code)]
         pub struct MyType {
             pub value: i32,
         }
@@ -203,9 +210,7 @@ fn main() {
 
 // ========== write_to_file 函数 ==========
 fn write_to_file() -> Result<(), io::Error> {
-    let mut file = io::BufWriter::new(
-        std::fs::File::create("output.txt")?
-    );
+    let mut file = io::BufWriter::new(std::fs::File::create("output.txt")?);
     file.write_all(b"Hello, world!")?;
     Ok(())
 }

@@ -8,7 +8,7 @@ fn test() {
     **b += 1;
     println!("{}", n);
 }
-
+#[allow(dead_code)]
 enum List {
     Cons(i32, Box<List>),
     Nil,
