@@ -10,6 +10,8 @@
 //
 // ============================================================================
 
+use std::collections::HashSet;
+
 fn main() {
     // ==========================================================================
     // 1. Vector<T> - 动态数组
@@ -200,9 +202,9 @@ fn main() {
     println!("排序后: {:?}", numbers);
 
     // Vector 去重
-    let mut with_dups = vec![1, 2, 2, 3, 3, 3, 4];
-    with_dups.dedup();
-    println!("去重后: {:?}", with_dups);
+    let mut with_dedup = vec![1, 2, 2, 3, 3, 3, 4];
+    with_dedup.dedup();
+    println!("去重后: {:?}", with_dedup);
 
     // HashMap 查找并删除
     let removed = scores.remove(&String::from("Red"));

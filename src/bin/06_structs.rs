@@ -51,7 +51,12 @@ fn main() {
     let username = String::from("charlie");
     let email = String::from("charlie@example.com");
 
-    let user3 = User { username, email, active: true, sign_in_count: 1 };
+    let user3 = User {
+        username,
+        email,
+        active: true,
+        sign_in_count: 1,
+    };
     // 相当于: username: username, email: email, ...
 
     println!("用户3: {} - {}", user3.username, user3.email);
@@ -87,19 +92,28 @@ fn main() {
     // 没有字段的结构体，类似于 () 类型
     struct AlwaysEqual;
 
-    let subject = AlwaysEqual;
+    let _subject = AlwaysEqual;
     println!("单元结构体实例创建成功");
 
     // ========== 7. 结构体方法 ==========
     println!("\n=== 结构体方法 ===");
 
-    let rect = Rectangle { width: 30, height: 50 };
+    let rect = Rectangle {
+        width: 30,
+        height: 50,
+    };
     println!("矩形面积: {}", rect.area());
 
-    let rect2 = Rectangle { width: 10, height: 20 };
+    let rect2 = Rectangle {
+        width: 10,
+        height: 20,
+    };
     println!("rect 能容纳 rect2? {}", rect.can_hold(&rect2));
 
-    let rect3 = Rectangle { width: 100, height: 50 };
+    let rect3 = Rectangle {
+        width: 100,
+        height: 50,
+    };
     println!("rect 能容纳 rect3? {}", rect.can_hold(&rect3));
 
     // ========== 8. 关联函数 ==========
@@ -160,19 +174,27 @@ impl Rectangle {
     }
 
     // 使用 self 获取所有权的方法（不常用）
+    #[allow(unused)]
     fn into_square(self) -> Rectangle {
         let size = self.width.min(self.height);
-        Rectangle { width: size, height: size }
+        Rectangle {
+            width: size,
+            height: size,
+        }
     }
 
     // 使用 &mut self 修改自身
+    #[allow(unused)]
     fn set_width(&mut self, width: u32) {
         self.width = width;
     }
 
     // 静态关联函数
     fn square(size: u32) -> Self {
-        Self { width: size, height: size }
+        Self {
+            width: size,
+            height: size,
+        }
     }
 }
 
@@ -182,8 +204,8 @@ impl Rectangle {
 
 fn build_user(username: String, email: String) -> User {
     User {
-        username,          // 字段简写
-        email,             // 字段简写
+        username, // 字段简写
+        email,    // 字段简写
         active: true,
         sign_in_count: 1,
     }

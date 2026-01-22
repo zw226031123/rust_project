@@ -129,7 +129,11 @@ fn main() {
     };
 
     // 解构整个结构体
-    let Person { name, age, address: Address { city, zip } } = &person;
+    let Person {
+        name,
+        age,
+        address: Address { city, zip: _ },
+    } = &person;
     println!("{} 的 {} 岁，住在 {}", name, age, city);
 
     // 解构用于 match
@@ -148,7 +152,7 @@ fn main() {
     }
 
     // if let 带有 else
-    let config = None;
+    let config: Option<i32> = None;
     if let Some(value) = config {
         println!("配置值: {}", value);
     } else {
@@ -187,6 +191,7 @@ fn main() {
 // ============================================================================
 
 // 简单枚举
+#[allow(unused)]
 #[derive(Debug)]
 enum Coin {
     Penny,
@@ -208,6 +213,7 @@ impl Coin {
 }
 
 // 用于 Coin::Quarter 的枚举
+#[allow(unused)]
 #[derive(Debug)]
 enum UsState {
     Alabama,
@@ -218,15 +224,17 @@ enum UsState {
 }
 
 // 复杂枚举
+#[allow(unused)]
 #[derive(Debug)]
 enum Message {
-    Quit,                       // 无数据的变体
-    Move { x: i32, y: i32 },    // 具名字段
-    Write(String),              // 单个值
-    ChangeColor(u8, u8, u8),    // 元组风格
+    Quit,                    // 无数据的变体
+    Move { x: i32, y: i32 }, // 具名字段
+    Write(String),           // 单个值
+    ChangeColor(u8, u8, u8), // 元组风格
 }
 
 // 为 Message 实现方法
+#[allow(unused)]
 impl Message {
     fn call(&self) {
         match self {
@@ -246,7 +254,7 @@ struct Person {
     age: u32,
     address: Address,
 }
-
+#[allow(unused)]
 #[derive(Debug)]
 struct Address {
     city: String,
