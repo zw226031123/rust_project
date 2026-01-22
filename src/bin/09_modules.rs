@@ -100,6 +100,7 @@ mod restaurant {
     }
 
     #[derive(Debug)]
+    #[allow(dead_code)]
     pub enum Appetizer {
         Soup,
         Salad,
@@ -127,7 +128,7 @@ fn main() {
     // ========== 1. 调用公开函数 ==========
     println!("1. 调用模块中的函数：");
     // 使用完整路径
-    crate::front_of_house::hosting::add_to_waitlist();
+    hosting::add_to_waitlist();
 
     // 使用 use 导入后简写
     hosting::add_to_waitlist();
