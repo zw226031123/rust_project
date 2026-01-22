@@ -1,3 +1,4 @@
+#[allow(unused)]
 #[derive(Debug)]
 enum List {
     Cons(Rc<RefCell<i32>>, Rc<List>),
@@ -8,7 +9,6 @@ use crate::List::{Cons, Nil};
 use std::cell::RefCell;
 use std::rc::Rc;
 
-#[test]
 fn main() {
     let value = Rc::new(RefCell::new(5));
 

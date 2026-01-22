@@ -1,7 +1,6 @@
 use std::rc::Rc;
 
-#[test]
-fn test() {
+fn main() {
     let x = Rc::new(Example);
     let y = Rc::clone(&x);
     println!("A");

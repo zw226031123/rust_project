@@ -1,8 +1,7 @@
 use std::time::Duration;
 use trpl::Either;
 
-#[test]
-fn test_async_study() {
+fn main() {
     trpl::run(async {
         let slow = async {
             trpl::sleep(Duration::from_secs(5)).await;

@@ -4,10 +4,8 @@ use reqwest::Client as AsyncClient;
 use reqwest::blocking::Client;
 use rust_project::models::flink::Flink;
 use serde_json::Value;
-use std::time::Duration;
 use tokio; // 引入tokio库
-
-#[test]
+#[allow(unused)]
 fn main_sync() {
     let client = Client::new();
     let authorization = base64("publink", "rxe3N@9%");
@@ -41,7 +39,7 @@ fn main_sync() {
         }
     }
 }
-#[tokio::test]
+#[tokio::main]
 async fn main() {
     // 发送GET请求
     let client = AsyncClient::new();

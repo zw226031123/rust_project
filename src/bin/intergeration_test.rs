@@ -1,9 +1,7 @@
 use rust_project::models::enums::YesNo;
 use rust_project::models::structs::HousePrice;
-use std::thread;
 
-#[test]
-fn test() {
+fn main() {
     let _price = HousePrice {
         price: 100,
         area: String::from("zz"),
@@ -58,12 +56,12 @@ fn iterator_demonstration() {
     assert_eq!(v1_iter.next(), Some(&3));
     assert_eq!(v1_iter.next(), None);
 }
-
+#[allow(unused)]
 async fn hello_world() {
     println!("hello, world!");
 }
 use futures::executor::block_on;
-#[test]
+#[allow(unused)]
 fn future_test() {
     let future = hello_world();
     block_on(future);

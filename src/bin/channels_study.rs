@@ -2,7 +2,6 @@ use std::sync::mpsc;
 use std::thread;
 use std::time::Duration;
 
-#[test]
 fn main() {
     let (ts, tr) = mpsc::channel();
     let tx = ts.clone();
