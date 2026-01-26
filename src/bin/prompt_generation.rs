@@ -1,23 +1,24 @@
 /*提示词生成*/
 fn main() {
     //
-    println!(
-        "{}",
-        result_map_gen(
-            "cn.publink.servicemobile.base.entity.FieldInfo",
-            "MiddlewareFieldInfoDao.xml",
-        )
-    );
+    // println!(
+    //     "{}",
+    //     result_map_gen(
+    //         "cn.publink.servicemobile.base.entity.FieldInfo",
+    //         "MiddlewareFieldInfoDao.xml",
+    //     )
+    // );
     println!(
         "{}",
         result_map_gen_v2(
-            "cn.publink.servicemobile.base.entity.FieldInfo",
-            "MiddlewareFieldInfoDao.xml",
-            Some(String::from("getList,getAdditionList")),
+            "cn.publink.servicemobile.base.entity.card.CardField",
+            "MiddlewareMapper.xml",
+            Some(String::from("getListByFieldNameList")),
         )
     );
 }
 /*  resultmap 生成*/
+#[allow(dead_code)]
 fn result_map_gen(entity: &str, xml: &str) -> String {
     result_map_gen_v2(entity, xml, None)
 }

@@ -17,6 +17,7 @@ futures = "0.3.31"
 thiserror = "2.0.18"
 actix-rt = "2.11.0"
 awc = "3.8.1"
+toml = "0.9.11"
 
 
 
