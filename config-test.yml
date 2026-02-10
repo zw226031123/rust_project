@@ -1,0 +1,8 @@
+version: 1.5
+services:
+  - name: test
+    image: image_test
+    ports:
+      - 80
+      - 443
+
