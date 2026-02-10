@@ -11,9 +11,9 @@ fn main() {
     println!(
         "{}",
         result_map_gen_v2(
-            "cn.publink.servicemobile.base.entity.card.CardField",
+            "cn.publink.servicemobile.base.entity.card.Card",
             "MiddlewareMapper.xml",
-            Some(String::from("getListByFieldNameList")),
+            Some(String::from("getListByIds")),
         )
     );
 }
