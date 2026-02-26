@@ -11,7 +11,7 @@ trpl = "0.3.0"
 serde = { version = "1.0.228",features = ["derive"] }
 serde_json = "1.0.149"
 base64 = "0.22.1"
-reqwest = { version = "0.13.1",features = ["blocking","json"] }
+reqwest = { version = "0.13.1", features = ["blocking", "json", "query"] }
 tokio = { version = "1.49.0",features = ["macros"] }
 futures = "0.3.31"
 thiserror = "2.0.18"
