@@ -22,7 +22,7 @@ struct MoenTaskMileage {
 }
 
 pub fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let file = File::open("./task.txt")?;
+    let file = File::open("./task1.txt")?;
 
     let mut rdr = ReaderBuilder::new()
         .has_headers(false) // 关键设置：文件没有标题行
@@ -41,7 +41,7 @@ pub fn main() -> Result<(), Box<dyn std::error::Error>> {
         };
         let result = client
             .post("https://app.shb.ltd/api/middleware/outside/moen/moenTaskMileage")
-            .header("token", "2cc11e438c2017a7361c301480266c78_41")
+            .header("token", "a498487e9f40741dcc7eb1bb317529e0_41")
             .json(&mileage)
             .send()
             .expect("request error")
@@ -68,8 +68,4 @@ pub fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     Ok(())
     // AZ2025091702814 AZ2025091702816 WX2025091706379
-}
-
-pub fn test() {
-    println!("test");
 }

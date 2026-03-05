@@ -166,7 +166,7 @@ pub fn main() -> Result<(), Box<dyn std::error::Error>> {
         let id = split.get(0).unwrap();
         let task_no = split.get(1).unwrap();
         // https://app.shb.ltd/api/middleware/outside/moen/moenTaskMileage
-        task_mileage(task_no.to_string(), id.to_string());
+        let _ = task_mileage(task_no.to_string(), id.to_string());
     }
     Ok(())
     // AZ2025091702814 AZ2025091702816 WX2025091706379
