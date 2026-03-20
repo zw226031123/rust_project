@@ -5,6 +5,7 @@ use crate::handle_data::model::{
 };
 use csv::ReaderBuilder;
 use reqwest::blocking::Client;
+use rust_decimal::prelude::Zero;
 use rust_decimal::{Decimal, RoundingStrategy};
 use serde_json::Value;
 use std::fs::File;
@@ -24,6 +25,31 @@ pub fn search_task(request: &Request, body_str: String) -> Result<String, Projec
         .expect("request error")
         .text();
     Ok(result.unwrap())
+}
+
+pub fn search_task_by_no(request: &Request, task_no: &str) -> Result<String, ProjectError> {
+    let body_str = format!(
+        r#"{{"page":1,"pageSize":100,"queryCreateHalf":true,"keyword":"{task_no}","templateId":"","stateList":[],"isException":null,"exceptionStates":[],"exceptionNodes":[],"conditions":[],"systemConditions":[],"createUser":"","executor":"","synergyId":"","currentNodeExecutorUser":"","nodeProcessedUser":"","searchNodeId":"","whoseInfo":"my","privacy":true}}"#
+    );
+    let result = search_task(&request, body_str);
+    if result.is_ok() {
+        let task_content = serde_json::from_str::<Value>(&result?)
+            .expect("Failed to read response")
+            .get("result")
+            .unwrap()
+            .get("content")
+            .unwrap()
+            .to_string();
+        let task_vec: Vec<Task> =
+            serde_json::from_str(&task_content).expect("Failed to read response");
+        let task = task_vec.iter().find(|task| task.task_no == task_no);
+        if let Some(task) = task {
+            return Ok(task.id.clone());
+        }
+        Err(ProjectError::Null())
+    } else {
+        result
+    }
 }
 
 pub fn task_record_list(
@@ -140,8 +166,8 @@ pub fn task_mileage(task_no: String, task_id: String) -> Result<Decimal, Project
                     let task_distance = estimated_distance(
                         task_record.longitude.unwrap(),
                         task_record.latitude.unwrap(),
-                        task.address.longitude,
-                        task.address.latitude,
+                        task.address.longitude.unwrap_or(Decimal::zero()),
+                        task.address.latitude.unwrap_or(Decimal::zero()),
                     );
                     if let Ok(task_distance) = task_distance {
                         println!("{}\t\t{}", task_no, task_distance);

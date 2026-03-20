@@ -32,12 +32,14 @@ pub struct EstimatedDistanceParam {
 #[derive(Deserialize, Serialize)]
 pub struct Task {
     pub id: String,
+    #[serde(rename = "taskNo")]
+    pub task_no: String,
     pub address: Address,
 }
 #[derive(Deserialize, Serialize)]
 pub struct Address {
-    pub latitude: Decimal,
-    pub longitude: Decimal,
+    pub latitude: Option<Decimal>,
+    pub longitude: Option<Decimal>,
 }
 
 #[derive(Deserialize, Serialize)]

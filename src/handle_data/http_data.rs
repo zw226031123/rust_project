@@ -1,8 +1,11 @@
+use crate::handle_data::model::Request;
+use crate::handle_data::shb_task;
 use csv::ReaderBuilder;
 use reqwest::blocking::Client;
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use std::fs::File;
+
 #[allow(dead_code)]
 pub fn test_main() {
     let client = Client::new();
@@ -62,6 +65,62 @@ pub fn main() -> Result<(), Box<dyn std::error::Error>> {
                     .and_then(|d| d.get("taskMileage").cloned())
                     .and_then(|v| Option::from(v.to_string()));
                 option.unwrap_or_else(|| String::from(""))
+            }
+        };
+        println!("{}\t\t{}", task_no, str);
+    }
+    Ok(())
+    // AZ2025091702814 AZ2025091702816 WX2025091706379
+}
+
+pub fn task_no_moen_task_mileage() -> Result<(), Box<dyn std::error::Error>> {
+    let file = File::open("./taskno.txt")?;
+
+    let request = Request {
+        host: String::from("https://app.shb.ltd"),
+        token: String::from("f834d83d4b3b5c4d2433c4ace72b5904_41"),
+    };
+
+    let mut rdr = ReaderBuilder::new()
+        .has_headers(false) // 关键设置：文件没有标题行
+        .from_reader(file);
+    let client = Client::new();
+    for result in rdr.records() {
+        let record = result?;
+        // 此时 record[0] 就是第一列的数据，而不是列名
+        let task_no: &str = record[0].as_ref();
+
+        let task_id = shb_task::search_task_by_no(&request, task_no);
+        if task_id.is_err() {
+            println!("Task not found,{}", task_no);
+            continue;
+        }
+        let task_id = task_id?;
+        let mileage = MoenTaskMileage {
+            task_id: task_id.to_string(),
+        };
+        let result = client
+            .post("https://app.shb.ltd/api/middleware/outside/moen/moenTaskMileage")
+            .header("token", "f834d83d4b3b5c4d2433c4ace72b5904_41")
+            .json(&mileage)
+            .send()
+            .expect("request error")
+            .text();
+        let str: String = match result {
+            Err(_e) => String::from("错误"),
+            Ok(text) => {
+                let json: Value = serde_json::from_str(&text)?;
+                let data_value = json.get("data").cloned();
+                // 或者直接提取你需要的数值
+                let option: Option<String> = data_value
+                    .and_then(|d| d.get("managementAllowance").cloned())
+                    .and_then(|v| Option::from(v.to_string()));
+                let result = option.ok_or_else(|| String::from(""));
+                if result.is_err() {
+                    String::from("managementAllowance is empty")
+                } else {
+                    result?
+                }
             }
         };
         println!("{}\t\t{}", task_no, str);
